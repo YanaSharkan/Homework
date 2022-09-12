@@ -16,7 +16,7 @@ def solve_quadratic_equation(a, b, c):
         x_2 = (-b - math.sqrt(discriminant)) / 2*a
         return x_1, x_2
     else:
-        return - (b / 2*a), None
+        return - (b / (2*a)), None
 
 
 def solve_quadratic_equation_complex(a, b, c):
@@ -26,7 +26,7 @@ def solve_quadratic_equation_complex(a, b, c):
         x_2 = (-b - cmath.sqrt(discriminant)) / 2*a
         return x_1, x_2
     else:
-        return - (b / 2*a), None
+        return - (b / (2*a)), None
 
 
 def test_solve_quadratic_equation_no_roots():
@@ -37,7 +37,7 @@ def test_solve_quadratic_equation_no_roots():
 
 def test_solve_quadratic_equation_one_root():
     x_1, x_2 = solve_quadratic_equation(2, 4, 2)
-    assert x_1 == -4, 'Root one for (2, 4, 2) is wrong'
+    assert x_1 == -1, 'Root one for (2, 4, 2) is wrong'
     assert x_2 is None, 'Root two for (2, 4, 2) is wrong'
 
 
