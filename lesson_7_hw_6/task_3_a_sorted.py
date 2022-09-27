@@ -5,7 +5,7 @@ Copy sorted by element number value.
 
 
 def sort_list(lst):
-    return sorted(lst, key=lambda x: float(x))
+    return sorted(lst, key=float)
 
 
 def test_sort_list():

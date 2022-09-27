@@ -3,40 +3,39 @@ Function in this module shuffles sentence with leaving it readable.
 """
 
 
-from random import randint
+from random import randint, shuffle
 
 
 def shuffle_string(string):
-    result = string
-    for i in range(0, len(string)):
-        letter_index = randint(0, len(string) - 1)
-        if letter_index != i:
-            prev_result = result
-            result = result[0:i] + result[letter_index] + result[i + 1:]
-            result = result[0:letter_index] + prev_result[i] + result[letter_index + 1:]
+    while True:
+        symbols_list = list(string)
+        shuffle(symbols_list)
+        result = ''.join(symbols_list)
 
-    return result
+        if result != string:
+            return result
 
 
 def shuffle_word(word):
-    if len(word) < 5 or word.isalpha() is False:
+    if len(word) < 4 or word.isalpha() is False:
         return word
     else:
         inner_letters = word[1: -1]
         list_of_parts = [inner_letters[i:i + 3] for i in range(0, len(inner_letters), 3)]
-        for part in list_of_parts:
-            if len(part) > 2:
-                word = word.replace(part, shuffle_string(part), 1)
 
-        return word
+        for i, part in enumerate(list_of_parts):
+            if len(part) > 1:
+                list_of_parts[i] = shuffle_string(part)
+
+        return word[0] + ''.join(list_of_parts) + word[-1]
 
 
 def permutuate(text):
     words = text.split(' ')
-    for word in words:
-        text = text.replace(word, shuffle_word(word), 1)
+    for i, word in enumerate(words):
+        words[i] = shuffle_word(word)
 
-    return text
+    return ' '.join(words)
 
 
 def main():
