@@ -7,24 +7,21 @@ my_dict = {'a': 2, 3: 'b', 'c': [1, 2.3]}
 
 
 def copydeep(value):
-    if not isinstance(value, (list, dict, tuple)):
-        return value
-
-    if isinstance(value, list):
+    if isinstance(value, list) or isinstance(value, tuple):
         list_copy = []
         for el in value:
             list_copy.append(copydeep(el))
+        if isinstance(value, tuple):
+            return tuple(list_copy)
         return list_copy
     elif isinstance(value, dict):
         dict_copy = {}
-        for key in value.keys():
+        for key in value:
             dict_copy[key] = copydeep(value[key])
         return dict_copy
-    elif isinstance(value, tuple):
-        tuple_copy = list(value)
-        for ind, el in enumerate(tuple_copy):
-            tuple_copy[ind] = copydeep(el)
-        return tuple(tuple_copy)
+
+    return value
+
 
 
 def test_copydeep():

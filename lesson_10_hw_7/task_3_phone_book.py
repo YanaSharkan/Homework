@@ -63,12 +63,14 @@ def add_entry_phonebook():
     name    = input("    Enter name: ")
     age     = int(input("    Enter age: "))
     phone_number   = input("    Enter phone num.: ")
+    date_of_birth = input("    Enter date of birth: ")
 
     entry = {}
     entry["surname"] = surname
     entry["name"] = name
     entry["age"] = age
     entry["phone_number"] = phone_number
+    entry["date_of_birth"] = date_of_birth
     phone_book.append(entry)
 
 
@@ -98,10 +100,19 @@ def find_entry_age_phonebook():
 def delete_entry_name_phonebook():
     name = str(input("    Enter name: "))
     count = 0
-    for i, entry in enumerate(phone_book):
+    contacts_to_delete = []
+
+    for entry in phone_book:
         if entry["name"] == name:
-            phone_book.pop(i)
-            count += 1
+            contacts_to_delete.append(entry)
+
+    for entry in contacts_to_delete:
+        count += 1
+        print_entry(count, entry)
+        confirm = input("    Are you sure you want to delete this record? Type (y/n): ")
+        if confirm.lower() == "y":
+            phone_book.pop(phone_book.index(entry))
+
     if count == 0:
         printError("Not found!!")
     else:
@@ -160,8 +171,11 @@ def change_phone_number():
     for entry in phone_book:
         if entry["name"] == name:
             found = True
-            entry["phone_number"] = phone_number
-            print(f"Phone number of {name} was changed!")
+            print_entry(phone_book.index(entry) + 1, entry)
+            confirm = input("    Are you sure that you want to change number? Type (y/n): ")
+            if confirm.lower() == "y":
+                entry["phone_number"] = phone_number
+                print(f"Phone number of {name} was changed!")
     if found is False:
         printError("Not found!!")
 

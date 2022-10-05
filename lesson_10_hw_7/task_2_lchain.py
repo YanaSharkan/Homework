@@ -10,7 +10,7 @@ def lchain(*iterables):
     res_list = []
     for el in iterables:
         if isinstance(el, Iterable):
-            res_list += list(el)
+            res_list.extend(list(el))
         else:
             raise TypeError('Only iterables are allowed')
     return res_list
